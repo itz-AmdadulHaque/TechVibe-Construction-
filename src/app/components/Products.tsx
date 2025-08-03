@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 export default function Products() {
   return (
@@ -15,17 +15,25 @@ export default function Products() {
           Our Products
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto mb-10 rounded" />
-        
+
         <p className="text-gray-700 text-lg md:text-xl max-w-3xl mx-auto mb-6 leading-relaxed">
-          We can provide all the essential products needed for our services — including CCTV systems, computers, laptops, printers, projectors, accessories, fire safety equipment, and more.
+          We can provide all the essential products needed for our services —
+          including CCTV systems, computers, laptops, printers, projectors,
+          accessories, fire safety equipment, and more.
         </p>
-        
+
         <p className="text-gray-700 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-          Our online store is <span className="font-semibold text-purple-600">coming soon</span>. Meanwhile, feel free to <span className="font-semibold text-blue-600 underline cursor-pointer">call us</span> for your product needs or to book a service.
+          Our online store is{" "}
+          <span className="font-semibold text-purple-600">coming soon</span>.
+          Meanwhile, feel free to{" "}
+          <span className="font-semibold text-blue-600 underline cursor-pointer">
+            call us
+          </span>{" "}
+          for your product needs or to book a service.
         </p>
-        
+
         <a
-          href="tel:+1234567890"
+          href="tel:+8801320504151"
           className="inline-block px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-300"
         >
           Call Us Now
