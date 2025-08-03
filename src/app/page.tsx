@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import StructuredData from "./components/StructuredData";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,6 +46,14 @@ export default function Home() {
     window.location.href = "tel:+8801320504151";
   };
 
+  const handleWhatsappMassage = () => {
+    const phone = "8801320504151"; // without the plus sign
+    const message = encodeURIComponent(
+      "Hello TechVibe Global, I’d like to get in touch."
+    );
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -62,8 +69,6 @@ export default function Home() {
 
   return (
     <>
-      <StructuredData />
-
       {/* Welcome Popup */}
       {showPopup && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
@@ -93,62 +98,51 @@ export default function Home() {
             </button>
 
             <div className="relative p-8 text-center">
-              {/* Icon */}
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
+              {/* Logo */}
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/logo.png"
+                  alt="TechVibe Global Logo"
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-cover"
+                  priority
+                />
               </div>
 
               {/* Content */}
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 Welcome to TechVibe Global! 🚀
               </h3>
+              <p className="text-sm text-blue-600 font-medium mb-6">
+                Engineering Excellence Since 2017
+              </p>
 
               <div className="space-y-3 text-gray-600 mb-6">
                 <p className="text-sm leading-relaxed">
                   <span className="inline-block w-2 h-2 bg-orange-400 rounded-full mr-2"></span>
-                  This is currently an <strong>under-development</strong>{" "}
-                  project
+                  Website is currently <strong>under construction</strong>
                 </p>
                 <p className="text-sm leading-relaxed">
                   <span className="inline-block w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
-                  An updated version will be available soon
+                  We provide all <strong>necessary products</strong> related to
+                  our services
                 </p>
                 <p className="text-sm leading-relaxed">
                   <span className="inline-block w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                  You can still <strong>explore our services</strong> and
-                  contact us
+                  Soon you can <strong>book services & buy products</strong>{" "}
+                  online
                 </p>
               </div>
 
               {/* CTA Buttons */}
               <div className="space-y-3">
-                <button
-                  onClick={() => {
-                    closePopup();
-                    document
-                      .getElementById("services")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105"
-                >
-                  Explore Our Services
-                </button>
+                {/* The "Explore Our Services" button has been removed */}
 
                 <button
                   onClick={closePopup}
-                  className="w-full px-6 py-2 text-gray-500 hover:text-gray-700 font-medium transition-colors duration-200"
+                  // Applied the styling from the removed "Explore Our Services" button
+                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105"
                 >
                   Continue Browsing
                 </button>
@@ -351,12 +345,12 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
-                  onClick={handleCallClick}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-center justify-center gap-2"
+                  onClick={handleWhatsappMassage}
+                  className="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl text-lg transition-transform duration-300 hover:scale-105 shadow-md hover:shadow-2xl flex items-center justify-center gap-2"
                   aria-label="Contact TechVibe Global at +880 13205-04151"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 z-10"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -368,8 +362,8 @@ export default function Home() {
                       d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                     />
                   </svg>
-                  <span className="relative z-10">Consult With Us</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="z-10">Contact Us</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </button>
 
                 <button
@@ -403,6 +397,7 @@ export default function Home() {
           aria-labelledby="about-heading"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
             <div className="text-center mb-16">
               <div className="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">
                 About TechVibe Global
@@ -417,7 +412,7 @@ export default function Home() {
             </div>
 
             {/* Story Section */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+            <div className="grid lg:grid-cols-2 gap-12 items-start mb-24">
               <div className="space-y-6">
                 <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
                   <div className="flex items-center mb-4">
@@ -481,89 +476,98 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Values Section */}
-            <div className="text-center mb-16">
-              <h3 className="text-3xl font-bold text-gray-900 mb-12">
-                Our Core Values
-              </h3>
-              <div className="grid md:grid-cols-4 gap-8">
-                <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl">🔥</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">
-                    Fire Safety
-                  </h4>
-                  <p className="text-gray-600 text-sm">
-                    Comprehensive fire protection and life safety solutions
-                  </p>
-                </div>
-
-                <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl">⚡</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">
-                    Electrical Safety
-                  </h4>
-                  <p className="text-gray-600 text-sm">
-                    Advanced electrical system safety and compliance
-                  </p>
-                </div>
-
-                <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl">💻</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">
-                    IT Solutions
-                  </h4>
-                  <p className="text-gray-600 text-sm">
-                    Cutting-edge surveillance and IT infrastructure
-                  </p>
-                </div>
-
-                <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl">🏗️</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">
-                    Engineering Consultancy
-                  </h4>
-                  <p className="text-gray-600 text-sm">
-                    Sustainable infrastructure and building solutions
-                  </p>
+            {/* Stats Section */}
+            <div className="my-24">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+                  {[
+                    { value: "2017", label: "Founded", color: "text-blue-600" },
+                    {
+                      value: "15+",
+                      label: "Years Experience",
+                      color: "text-purple-600",
+                    },
+                    {
+                      value: "2",
+                      label: "Office Locations",
+                      color: "text-green-600",
+                    },
+                    {
+                      value: "100%",
+                      label: "Client Satisfaction",
+                      color: "text-orange-600",
+                    },
+                  ].map((stat, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white rounded-2xl shadow-md p-6 text-center border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+                    >
+                      <div
+                        className={`text-4xl font-extrabold mb-2 ${stat.color}`}
+                      >
+                        {stat.value}
+                      </div>
+                      <div className="text-gray-600 text-base font-medium">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Stats Section */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-              <div className="grid md:grid-cols-4 gap-8 text-center">
-                <div>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">
-                    2017
+            {/* Values Section */}
+            <div className="text-center mb-20">
+              <h2 className="text-4xl font-extrabold text-gray-900 mb-6">
+                What We Specialize In
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto mb-12 text-sm">
+                Our services are driven by technical precision, safety, and
+                sustainable innovation.
+              </p>
+
+              <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+                {[
+                  {
+                    icon: "🔥",
+                    title: "Fire Safety",
+                    desc: "Comprehensive fire protection and life safety solutions",
+                    gradient: "from-red-500 to-orange-500",
+                  },
+                  {
+                    icon: "⚡",
+                    title: "Electrical Safety",
+                    desc: "Advanced electrical system safety and compliance",
+                    gradient: "from-yellow-500 to-orange-500",
+                  },
+                  {
+                    icon: "💻",
+                    title: "IT Solutions",
+                    desc: "Cutting-edge surveillance and IT infrastructure",
+                    gradient: "from-blue-500 to-purple-500",
+                  },
+                  {
+                    icon: "🏗️",
+                    title: "Engineering Consultancy",
+                    desc: "Sustainable infrastructure and building solutions",
+                    gradient: "from-green-500 to-blue-500",
+                  },
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="group hover:shadow-xl transition-shadow duration-300 p-6 rounded-xl bg-white"
+                  >
+                    <div
+                      className={`w-20 h-20 bg-gradient-to-r ${item.gradient} rounded-2xl flex items-center justify-center mx-auto mb-4 transform transition-transform duration-300 group-hover:scale-110`}
+                    >
+                      <span className="text-3xl">{item.icon}</span>
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                      {item.title}
+                    </h4>
+                    <p className="text-gray-600 text-sm px-2">{item.desc}</p>
                   </div>
-                  <div className="text-gray-600">Founded</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
-                    15+
-                  </div>
-                  <div className="text-gray-600">Years Experience</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-green-600 mb-2">
-                    2
-                  </div>
-                  <div className="text-gray-600">Office Locations</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-orange-600 mb-2">
-                    100%
-                  </div>
-                  <div className="text-gray-600">Client Satisfaction</div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -577,6 +581,7 @@ export default function Home() {
             aria-labelledby="services-heading"
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Section Heading */}
               <div className="text-center mb-16">
                 <div className="inline-block px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-semibold mb-4">
                   What We Offer
@@ -587,232 +592,248 @@ export default function Home() {
                 >
                   OUR SERVICES
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto mb-8"></div>
+                <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto mb-8" />
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                   Comprehensive engineering solutions designed to meet your
                   specific needs with precision, innovation, and reliability.
                 </p>
               </div>
 
+              {/* Services Grid */}
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-red-200 transition-all duration-300 hover:-translate-y-2">
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl">🔥</span>
+                {[
+                  {
+                    icon: "🔥",
+                    title: "Fire and Life Safety",
+                    gradient: "from-red-500 to-orange-500",
+                    border: "hover:border-red-200",
+                    experience:
+                      "Over 8 years of experience in fire protection systems and safety protocols across commercial and industrial settings.",
+                    items: [
+                      "Fire Risk Assessment & Mitigation",
+                      "Design of Fire Suppression and Detection Systems",
+                      "Compliance with NFPA and OSHA Standards",
+                      "Emergency Response Planning",
+                      "Safety Audits and Inspections",
+                      "Project Management and Team Leadership",
+                    ],
+                  },
+                  {
+                    icon: "⚡",
+                    title: "Electrical Safety",
+                    gradient: "from-yellow-500 to-orange-500",
+                    border: "hover:border-yellow-200",
+                    experience:
+                      "Over 15 years of expertise in electrical system safety and compliance across industrial and commercial sectors.",
+                    items: [
+                      "Electrical Hazard Analysis",
+                      "Risk Assessment & Mitigation",
+                      "Regulatory Compliance (NFPA 70E, OSHA)",
+                      "Plan, Design and Implementation",
+                      "Lockout/Tagout Procedures",
+                      "Safety Audits and Inspections",
+                      "Incident Investigation",
+                      "Personal Protective Equipment (PPE) Implementation",
+                    ],
+                  },
+                  {
+                    icon: "💻",
+                    title: "IT and Surveillance Solutions",
+                    gradient: "from-blue-500 to-purple-500",
+                    border: "hover:border-blue-200",
+                    experience:
+                      "Over 15 years of experience in scalable software applications and IT infrastructure solutions.",
+                    items: [
+                      "CCTV Systems - Installs and maintains surveillance systems to enhance security",
+                      "Access Control Implements biometric, fingerprint, and face recognition systems",
+                      "Hardware & Software Support: Troubleshooting and maintenance services",
+                      "Product Sales: Computers, laptops, printers, projectors, accessories",
+                    ],
+                  },
+                ].map((service, idx) => (
+                  <div
+                    key={idx}
+                    className={`group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl ${service.border} transition-all duration-300 hover:-translate-y-2`}
+                  >
+                    {/* Header Icon and Title */}
+                    <div className="flex items-center mb-6">
+                      <div
+                        className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        <span className="text-2xl">{service.icon}</span>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900">
+                          {service.title}
+                        </h3>
+                        <div
+                          className={`w-12 h-1 bg-gradient-to-r ${service.gradient} mt-2`}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        Fire and Life Safety
-                      </h3>
-                      <div className="w-12 h-1 bg-gradient-to-r from-red-500 to-orange-500 mt-2"></div>
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    Over 8 years of experience in fire protection systems and
-                    safety protocols across commercial and industrial settings.
-                  </p>
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Fire Risk Assessment & Mitigation
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Design of Fire Suppression and Detection Systems
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Compliance with NFPA and OSHA Standards
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Emergency Response Planning
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Safety Audits and Inspections
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Project Management and Team Leadership
-                    </li>
-                  </ul>
-                </div>
 
-                <div className="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-yellow-200 transition-all duration-300 hover:-translate-y-2">
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl">⚡</span>
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        Electrical Safety
-                      </h3>
-                      <div className="w-12 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mt-2"></div>
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    Over 15 years of expertise in electrical system safety and
-                    compliance across industrial and commercial sectors.
-                  </p>
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Electrical Hazard Analysis
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Risk Assessment & Mitigation
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Regulatory Compliance (NFPA 70E, OSHA)
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Plan, Design and Implementation
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Lockout/Tagout Procedures
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Safety Audits and Inspections
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Incident Investigation
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Personal Protective Equipment (PPE) Implementation
-                    </li>
-                  </ul>
-                </div>
+                    {/* Experience Text */}
+                    <p className="text-gray-700 leading-relaxed mb-6">
+                      {service.experience}
+                    </p>
 
-                <div className="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 hover:-translate-y-2">
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl">💻</span>
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        IT and Surveillance Solutions
-                      </h3>
-                      <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-2"></div>
-                    </div>
+                    {/* Service List */}
+                    <ul className="space-y-3 text-gray-700">
+                      {service.items.map((point, i) => (
+                        <li key={i} className="flex items-start">
+                          <div
+                            className={`w-5 h-5 bg-gradient-to-r ${service.gradient} rounded-sm flex items-center justify-center mt-1 mr-3 flex-shrink-0`}
+                          >
+                            <svg
+                              className="w-3 h-3 text-white"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth={3}
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          </div>
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    Over 15 years of experience in scalable software
-                    applications and IT infrastructure solutions.
-                  </p>
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      CCTV Systems - Installs and maintains surveillance systems
-                      to enhance security
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Access Control Implements biometric, fingerprint, and face
-                      recognition systems
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Hardware & Software Support: Troubleshooting and
-                      maintenance services
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      Product Sales: Computers, laptops, printers, projectors,
-                      accessories
-                    </li>
-                  </ul>
-                </div>
+                ))}
               </div>
             </div>
           </section>
         </main>
 
         {/* Contact Footer */}
-        <footer id="contact" className="bg-gray-900 text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Header */}
-            <div className="text-center mb-12">
-              <div className="flex items-center justify-center mb-6">
-                <Image
-                  src="/logo.png"
-                  alt="TechVibe Global Logo"
-                  width={64}
-                  height={64}
-                  className="h-16 w-auto mr-4"
-                  priority
-                />
-                <div>
-                  <h2 className="text-3xl font-bold text-white">
-                    TechVibe Global
-                  </h2>
-                  <p className="text-blue-400 text-sm">
-                    Engineering Excellence Since 2017
-                  </p>
-                </div>
-              </div>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                Ready to transform your engineering challenges into innovative
-                solutions? Let&apos;s connect and build the future together.
-              </p>
-            </div>
-
-            {/* Contact Grid */}
-            <div className="grid md:grid-cols-3 gap-12 mb-12">
-              {/* Contact Info */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg
-                    className="w-8 h-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+        <footer
+          id="contact"
+          className="bg-gradient-to-br from-black via-gray-900 to-black"
+        >
+          <div className="max-w-7xl mx-auto px-6 py-16">
+            {/* Main Grid - 3 Columns */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+              {/* Left Grid - Company Info & Contact */}
+              <div className="space-y-8">
+                {/* Company Logo & Info */}
+                <div className="flex items-start space-x-4">
+                  <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden">
+                    <Image
+                      src="/logo.png"
+                      alt="TechVibe Global Logo"
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover rounded-xl"
+                      priority
                     />
-                  </svg>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white mb-1">
+                      TechVibe Global
+                    </h2>
+                    <p className="text-blue-400 font-medium text-sm">
+                      Engineering Excellence Since 2017
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">
-                  Contact Us
-                </h3>
-                <div className="space-y-2">
-                  <a
-                    href="tel:+8801320504151"
-                    className="block text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    +880 13205-04151
-                  </a>
-                  <a
-                    href="mailto:info@techvibeglobal.com"
-                    className="block text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    info@techvibeglobal.com
-                  </a>
-                  <a
-                    href="mailto:techvibeglobal@gmail.com"
-                    className="block text-blue-400 hover:text-blue-300 transition-colors"
-                  >
-                    techvibeglobal@gmail.com
-                  </a>
+                {/* Company Description */}
+                <p className="text-gray-300 text-sm mt-3 leading-relaxed">
+                  Transform your engineering challenges into innovative
+                  solutions with our expert team.
+                </p>
+
+                {/* Contact Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white flex items-center">
+                    <svg
+                      className="w-5 h-5 text-blue-400 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                    Contact Us
+                  </h3>
+
+                  <div className="space-y-3">
+                    <a
+                      href="tel:+8801320504151"
+                      className="flex items-center text-gray-300 hover:text-blue-400 transition-colors group"
+                    >
+                      <svg
+                        className="w-4 h-4 text-blue-400 mr-3 group-hover:text-blue-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
+                      </svg>
+                      +880 13205-04151
+                    </a>
+
+                    <a
+                      href="mailto:info@techvibeglobal.com"
+                      className="flex items-center text-gray-300 hover:text-blue-400 transition-colors group"
+                    >
+                      <svg
+                        className="w-4 h-4 text-blue-400 mr-3 group-hover:text-blue-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                      info@techvibeglobal.com
+                    </a>
+
+                    <a
+                      href="mailto:techvibeglobal@gmail.com"
+                      className="flex items-center text-gray-300 hover:text-blue-400 transition-colors group"
+                    >
+                      <svg
+                        className="w-4 h-4 text-blue-400 mr-3 group-hover:text-blue-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                      techvibeglobal@gmail.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              {/* Services */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              {/* Middle Grid - Services */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-white flex items-center">
                   <svg
-                    className="w-8 h-8 text-white"
+                    className="w-6 h-6 text-purple-400 mr-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -824,23 +845,102 @@ export default function Home() {
                       d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                     />
                   </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">
                   Our Services
                 </h3>
-                <div className="space-y-2 text-gray-300">
-                  <p>🔥 Fire and Life Safety</p>
-                  <p>⚡ Electrical Safety</p>
-                  <p>💻 IT and Surveillance</p>
-                  <p>🏗️ Engineering Consultancy</p>
+
+                <div className="space-y-4">
+                  <div className="flex items-center text-gray-300">
+                    <div className="w-2 h-2 bg-red-400 rounded-full mr-3"></div>
+                    <span>Fire and Life Safety</span>
+                  </div>
+
+                  <div className="flex items-center text-gray-300">
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
+                    <span>Electrical Safety</span>
+                  </div>
+
+                  <div className="flex items-center text-gray-300">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
+                    <span>IT and Surveillance</span>
+                  </div>
+
+                  <div className="flex items-center text-gray-300">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                    <span>Engineering Consultancy</span>
+                  </div>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="pt-6 space-y-3">
+                  <button
+                    onClick={handleCallClick}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    Call for Consultation
+                  </button>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <a
+                      href="mailto:info@techvibeglobal.com"
+                      className="px-4 py-3 border border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 font-medium rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                      Email
+                    </a>
+
+                    <button
+                      onClick={handleWhatsappMassage}
+                      className="px-4 py-3 border border-green-600 text-green-400 hover:bg-green-800/20 hover:border-green-500 font-medium rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                        />
+                      </svg>
+                      WhatsApp
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Offices */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              {/* Right Grid - Office Addresses */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-white flex items-center">
                   <svg
-                    className="w-8 h-8 text-white"
+                    className="w-6 h-6 text-green-400 mr-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -858,83 +958,71 @@ export default function Home() {
                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">
                   Our Offices
                 </h3>
-                <div className="space-y-4 text-gray-300 text-sm">
-                  <div>
-                    <p className="font-semibold text-blue-300 mb-1">
-                      🏢 Dhaka Office
-                    </p>
-                    <p>
+
+                <div className="space-y-6">
+                  {/* Dhaka Office */}
+                  <div className="bg-gray-800 bg-opacity-50 p-5 rounded-lg border border-gray-700">
+                    <div className="flex items-center mb-3">
+                      <svg
+                        className="w-5 h-5 text-blue-400 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                        />
+                      </svg>
+                      <h4 className="font-semibold text-blue-300">
+                        Dhaka Office
+                      </h4>
+                    </div>
+                    <address className="not-italic text-gray-300 text-sm leading-relaxed">
                       4th Floor, House #07, Road #09,
                       <br />
                       Sector #11, Uttara, Dhaka
-                    </p>
+                    </address>
                   </div>
-                  <div>
-                    <p className="font-semibold text-blue-300 mb-1">
-                      🏢 Chottogram Office
-                    </p>
-                    <p>
+
+                  {/* Chottogram Office */}
+                  <div className="bg-gray-800 bg-opacity-50 p-5 rounded-lg border border-gray-700">
+                    <div className="flex items-center mb-3">
+                      <svg
+                        className="w-5 h-5 text-green-400 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                        />
+                      </svg>
+                      <h4 className="font-semibold text-green-300">
+                        Chottogram Office
+                      </h4>
+                    </div>
+                    <address className="not-italic text-gray-300 text-sm leading-relaxed">
                       2nd Floor, Wali Khan Bhaban,
                       <br />
                       Chowmuhoni, Chottogram
-                    </p>
+                    </address>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* CTA Section */}
-            <div className="text-center mb-8">
-              <div className="inline-flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={handleCallClick}
-                  className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                  Call for Consultation
-                </button>
-                <a
-                  href="mailto:info@techvibeglobal.com"
-                  className="px-8 py-3 border-2 border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Send Email
-                </a>
               </div>
             </div>
 
             {/* Footer Bottom */}
             <div className="text-center pt-8 border-t border-gray-700">
               <p className="text-gray-400 text-sm">
-                © 2024 TechVibe Global. All rights reserved. | Connecting
+                © 2025 TechVibe Global. All rights reserved. | Connecting
                 Technology and Sustainability
               </p>
             </div>
